@@ -2,32 +2,37 @@
 WITH P1 AS (
   SELECT
     owner_id,
+    
+    -- Total number of transactions made by the user
     COUNT(transaction_reference) AS total_transactions,
     
-    -- Count the number of unique months with at least one transaction
+    -- Count of unique months in which the user made at least one transaction
     COUNT(DISTINCT DATE_FORMAT(transaction_date, '%Y-%m')) AS active_months,
     
     -- Average number of transactions per active month
-    ROUND(COUNT(transaction_reference) / COUNT(DISTINCT DATE_FORMAT(transaction_date, '%Y-%m'))) AS avg_transactions_per_month
+    ROUND(
+      COUNT(transaction_reference) / 
+      COUNT(DISTINCT DATE_FORMAT(transaction_date, '%Y-%m'))
+    ) AS avg_transactions_per_month
   FROM
     savings_savingsaccount
   GROUP BY
     owner_id
 )
 
--- Final aggregation to group customers by frequency category
+-- Final aggregation: group users into frequency categories
 SELECT 
-  -- Categorize users based on their transaction frequency
+  -- Classify users based on their average monthly transaction frequency
   CASE 
     WHEN A.avg_transactions_per_month >= 10 THEN 'High Frequency'
     WHEN A.avg_transactions_per_month BETWEEN 3 AND 9 THEN 'Medium Frequency'
     ELSE 'Low Frequency'
   END AS Frequency_Category,
 
-  -- Count of unique customers in each frequency category
+  -- Number of distinct customers in each frequency category
   COUNT(DISTINCT B.id) AS customer_count,
 
-  -- Average transaction frequency for the category
+  -- Average transaction frequency within each category
   ROUND(AVG(A.avg_transactions_per_month), 1) AS avg_transactions_per_month
 
 FROM 
@@ -37,6 +42,6 @@ JOIN users_customuser AS B ON A.owner_id = B.id
 GROUP BY 
   Frequency_Category
 
--- Sort by average frequency per category (ascending)
+-- Sort output by average monthly transactions (ascending)
 ORDER BY 
   avg_transactions_per_month;
