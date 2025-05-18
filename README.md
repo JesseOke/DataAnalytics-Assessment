@@ -17,11 +17,12 @@
 
  Question 2: Transaction Frequency Analysis
 
-
 **Objective**: Segment users by how frequently they perform transactions.
 
 **Approach**:
-- Calculated each user's transaction activity over active months to derive their average monthly transactions (`avg_transactions_per_month`).
+- Calculated each user’s total transaction count using COUNT(transaction_reference) on savings_savingsaccount.
+  Determined active months by counting the distinct year–month combinations in which a transaction occurred:
+  COUNT(DISTINCT DATE_FORMAT(transaction_date, '%Y-%m')) AS active_months
 - Applied logic to classify customers into:
   - High Frequency (≥ 10/month)
   - Medium Frequency (3–9/month)
