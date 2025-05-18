@@ -18,7 +18,7 @@ SELECT
   MAX(CAST(A.transaction_date AS DATE)) AS last_transaction_date,
 
   -- Calculate inactivity period in days since the last transaction
-  GREATEST(DATEDIFF(CURDATE(), MAX(A.transaction_date)), 0) AS Inactivity_days
+  GREATEST(DATEDIFF(CURDATE(), MAX(A.transaction_date)), 1) AS Inactivity_days
 
 FROM 
   savings_savingsaccount AS A
@@ -43,7 +43,7 @@ GROUP BY
 
 -- Only include plans that have been inactive for more than 365 days
 HAVING 
-  GREATEST(DATEDIFF(CURDATE(), MAX(A.transaction_date)), 0) - 365 >= 1
+  GREATEST(DATEDIFF(CURDATE(), MAX(A.transaction_date)), 1) - 365 >= 1
 
 -- Sort results by most inactive first
 ORDER BY 
