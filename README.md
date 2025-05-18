@@ -3,7 +3,7 @@
 
 ## Per-Question Explanations
 
- Question 1: Dual Product Customers with Total Deposits
+ Question 1: High-Value Customers with Multiple Products
 
 **Objective**: Identify customers who have both savings and investment plans and show their total deposit amount.
 
@@ -15,7 +15,8 @@
 
 ---
 
- Question 2: Frequency Segmentation
+ Question 2: Transaction Frequency Analysis
+
 
 **Objective**: Segment users by how frequently they perform transactions.
 
@@ -29,7 +30,7 @@
 
 ---
 
- Question 3: Inactive Plans
+ Question 3: Account Inactivity Alert
 
 **Objective**: Identify investment or savings plans with no transaction activity for over 365 days.
 
@@ -41,7 +42,7 @@
 
 ---
 
-Question 4: Customer Lifetime Value (CLV)
+Question 4: Customer Lifetime Value (CLV) Estimation
 
 **Objective**: Estimate the CLV of customers based on transaction data.
 
