@@ -51,7 +51,7 @@ Question 4: Customer Lifetime Value (CLV)
 - Computed tenure and transaction frequency, then used:
   
   \[
-  ROUND(COUNT(B.transaction_reference) / TIMESTAMPDIFF(MONTH, MIN(A.created_on), CURDATE()) * 12 * C.avg_profit_per_transaction, 0)
+  \text{CLV} = \left(\frac{\text{Total Transactions}}{\text{Tenure in Months}}\right) \times 12 \times \text{Average Profit}
   \]
 
 - Final output includes tenure, transaction count, and estimated CLV (formatted with commas).
