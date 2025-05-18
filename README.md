@@ -56,20 +56,37 @@ Question 4: Customer Lifetime Value (CLV)
 
 ---
 
-## Challenges & Resolutions
+## Challenges & Solutions
 
-- **Filtering with Derived Columns**: My early use of `WHERE` on computed columns (e.g., `Inactivity_days`) resulted in errors. Resolved by moving conditions to the `HAVING` clause.
-- **CASE Logic Filtering**: Filtering using `CASE` inside `WHERE` was tricky. Fixed it by repeating logical conditions separately for filters and for label generation.
-- **Divide-by-Zero in Tenure Calculations**: Resolved potential division errors by wrapping tenure calculations with `GREATEST(..., 1)` to ensure a minimum denominator of 1.
-- **Currency Formatting**: Used `FORMAT()` to add commas and improve readability for monetary values like `total_deposits` and `estimated_CLV`.
+Inconsistent Data Filtering Logic
+**Issue:** Early attempts to filter plan types (`Savings`, `Investment`) in the `WHERE` clause failed due to derived columns.
+
+**Solution:** Moved logic into `CASE` expressions used in both SELECT and WHERE clauses to ensure consistency, used `HAVING` to filter aggregated fields.
+
+---
+
+Zero Division and NULL Handling
+**Issue:** Some users had only one transaction month, causing potential divide-by-zero in averages.
+
+**Solution:** Used `GREATEST(..., 1)` to prevent zero division in time-based calculations.
+
+---
+
+CLV Estimation Logic
+**Issue:** Estimating profit per user required a standard assumption for profit margins.
+
+**Solution:** Used 0.1% of each `confirmed_amount` as proxy profit. Adjusted in later revisions for realism.
+
+
+
 
 ---
 
 
 Jesse Momoh 
-Data & FinOps Analyst 
+Data Analyst 
 📧  momoh.jesse.oke@gmail.com
 🔗  https://www.linkedin.com/in/jesse-momoh-o-01010101010/
 
----
+
 
