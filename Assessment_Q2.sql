@@ -2,13 +2,13 @@
 WITH P1 AS (
   SELECT
     owner_id,
-    COUNT(*) AS total_transactions,
+    COUNT(transaction_reference) AS total_transactions,
     
     -- Calculate the number of months between first and last transaction (minimum of 1 to avoid division by zero)
     GREATEST(TIMESTAMPDIFF(MONTH, MIN(transaction_date), MAX(transaction_date)), 1) AS active_months,
     
     -- Average number of transactions per active month
-    ROUND(COUNT(*) / GREATEST(TIMESTAMPDIFF(MONTH, MIN(transaction_date), MAX(transaction_date)), 1), 1) AS avg_transactions_per_month
+    ROUND(COUNT(transaction_reference) / GREATEST(TIMESTAMPDIFF(MONTH, MIN(transaction_date), MAX(transaction_date)), 1), 1) AS avg_transactions_per_month
   FROM
     savings_savingsaccount
   GROUP BY
