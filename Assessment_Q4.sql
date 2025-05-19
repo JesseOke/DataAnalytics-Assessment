@@ -17,14 +17,14 @@ P2 AS (
     CONCAT(A.first_name, ' ', A.last_name) AS name,
 
     -- Customer tenure in months (minimum 1 to prevent division by zero)
-    GREATEST(TIMESTAMPDIFF(MONTH, MIN(A.created_on), CURDATE()), 1) AS tenure_months,
+    GREATEST(TIMESTAMPDIFF(MONTH, MIN(A.date_joined), CURDATE()), 1) AS tenure_months,
 
     -- Total number of transactions
     COUNT(B.transaction_reference) AS total_transactions,
 
     -- CLV = (avg transactions/month) × 12 × avg profit per transaction
     ROUND(
-      COUNT(B.transaction_reference) / TIMESTAMPDIFF(MONTH, MIN(A.created_on), CURDATE()) 
+      COUNT(B.transaction_reference) / TIMESTAMPDIFF(MONTH, MIN(A.date_joined), CURDATE()) 
       * 12 * C.avg_profit_per_transaction,
       0
     ) AS estimated_CLV_numeric
