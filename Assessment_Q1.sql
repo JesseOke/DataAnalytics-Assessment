@@ -21,7 +21,7 @@ P2 AS (
   SELECT
     owner_id,
     -- Convert from base unit (e.g., kobo) to full currency and format to 2 decimal places
-    FORMAT(SUM(confirmed_amount) / 100.0, 2) AS total_deposits
+    FORMAT(SUM(confirmed_amount) / 100, 2) AS total_deposits
   FROM 
     savings_savingsaccount
   GROUP BY 
