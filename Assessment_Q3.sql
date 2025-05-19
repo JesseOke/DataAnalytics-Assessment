@@ -35,7 +35,7 @@ GROUP BY
 
 -- Filter plans inactive for more than 365 days
 HAVING 
-  GREATEST(DATEDIFF(CURDATE(), MAX(A.transaction_date)), 1) >= 365
+  GREATEST(DATEDIFF(CURDATE(), MAX(A.transaction_date)), 1) > 365
 
 -- Sort by longest inactivity period first
 ORDER BY 
