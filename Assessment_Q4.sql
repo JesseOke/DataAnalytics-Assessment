@@ -20,11 +20,11 @@ P2 AS (
     GREATEST(TIMESTAMPDIFF(MONTH, MIN(A.date_joined), CURDATE()), 1) AS tenure_months,
 
     -- Total number of transactions
-    COUNT(B.transaction_reference) AS total_transactions,
+    COUNT(B.confirmed_amount) AS total_transactions,
 
     -- CLV = (avg transactions/month) × 12 × avg profit per transaction
     ROUND(
-      COUNT(B.transaction_reference) / TIMESTAMPDIFF(MONTH, MIN(A.date_joined), CURDATE()) 
+      COUNT(B.confirmed_amount) / TIMESTAMPDIFF(MONTH, MIN(A.date_joined), CURDATE()) 
       * 12 * C.avg_profit_per_transaction,
       0
     ) AS estimated_CLV_numeric
