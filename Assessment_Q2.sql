@@ -4,14 +4,14 @@ WITH P1 AS (
     owner_id,
     
     -- Total number of transactions made by the user
-    COUNT(confirmed_amount) AS total_transactions,
+    COUNT(transaction_reference) AS total_transactions,
     
     -- Count of unique months in which the user made at least one transaction
     COUNT(DISTINCT DATE_FORMAT(transaction_date, '%Y-%m')) AS active_months,
     
     -- Average number of transactions per active month
     ROUND(
-      COUNT(confirmed_amount) / 
+      COUNT(transaction_reference) / 
       COUNT(DISTINCT DATE_FORMAT(transaction_date, '%Y-%m'))
     ) AS avg_transactions_per_month
   FROM
